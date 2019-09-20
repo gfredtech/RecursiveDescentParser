@@ -1,0 +1,6 @@
+enum TokenType {
+    LEFT_PAREN, RIGHT_PAREN,
+    MINUS, PLUS, SLASH, STAR,
+    EQUAL, GREATER, LESS,
+    NUMBER, EOF
+}
