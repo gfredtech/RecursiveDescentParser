@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.Contract;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,8 @@ class Lexer {
         return tokens;
     }
 
-    private boolean isAtEnd() {
-        return current >= source.length();
-    }
+    @Contract(pure = true)
+    private boolean isAtEnd() { return current >= source.length(); }
 
     private void scanToken() {
         char c = advance();
@@ -62,6 +63,7 @@ class Lexer {
         }
     }
 
+    @Contract(pure = true)
     private boolean isDigit(char c) { return c >= '0' && c <= '9'; }
 
     private void number() {

@@ -1,8 +1,10 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 class AstPrinter implements Expr.Visitor<String> {
 
-    private String print(Expr expr) {
+    private String print(@NotNull Expr expr) {
         return expr.accept(this);
     }
 
@@ -29,7 +31,8 @@ class AstPrinter implements Expr.Visitor<String> {
         return expr.value.toString();
     }
 
-    private String parenthesize(String name, Expr... exprs) {
+    @NotNull
+    private String parenthesize(String name, @NotNull Expr... exprs) {
         StringBuilder builder = new StringBuilder();
         builder.append("(").append(name);
 

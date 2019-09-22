@@ -1,3 +1,6 @@
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class Interpreter implements Expr.Visitor<Object> {
@@ -34,6 +37,8 @@ public class Interpreter implements Expr.Visitor<Object> {
         return null;
     }
 
+    @NotNull
+    @Contract(pure = true)
     private Object isEqual(Object left, Object right) {
         if (left == null && right == null) return 1;
         if (left == null) return 0;
@@ -41,13 +46,14 @@ public class Interpreter implements Expr.Visitor<Object> {
         return left.equals(right) ? 1 : 0;
     }
 
+    @Contract("_, null, _ -> fail")
     private void checkNumberOperand(Token operator, Object left, Object right) {
         if (left instanceof Double && right instanceof Double) return;
 
         throw new RuntimeError(operator, "Operands must be numbers.");
     }
 
-    private Object evaluate(Expr expr) {
+    private Object evaluate(@NotNull Expr expr) {
         return expr.accept(this);
     }
 
@@ -76,6 +82,7 @@ public class Interpreter implements Expr.Visitor<Object> {
         System.out.println(stringify(value));
     }
 
+    @Contract("null -> !null")
     private String stringify(Object object) {
         if (object == null) return "nil";
 

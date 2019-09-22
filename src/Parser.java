@@ -1,3 +1,6 @@
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +18,12 @@ class Parser {
         return expressions;
     }
 
+    @org.jetbrains.annotations.Contract(pure = true)
     private boolean isAtEnd() {
         return peek().type == TokenType.EOF;
     }
 
+    @Contract(pure = true)
     private Token peek() {
         return tokens.get(current);
     }
@@ -71,6 +76,8 @@ class Parser {
         return expr;
     }
 
+    @NotNull
+    @Contract(" -> new")
     private Expr primary() {
         if (match(TokenType.NUMBER)) {
             return new Expr.Literal(previous().literal);
@@ -84,6 +91,8 @@ class Parser {
         throw error(peek(), "Expected expression.");
     }
 
+    @NotNull
+    @Contract("_, _ -> new")
     private ParserError error(Token token, String message) {
         Main.error(token, message);
         return new ParserError();
@@ -102,11 +111,12 @@ class Parser {
         return peek().type == type;
     }
 
+    @Contract(pure = true)
     private Token previous() {
         return tokens.get(current - 1);
     }
 
-    private boolean match(TokenType... types) {
+    private boolean match(@NotNull TokenType... types) {
         for (TokenType type : types) {
             if (check(type)) {
                 advance();
