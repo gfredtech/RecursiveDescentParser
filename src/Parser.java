@@ -11,7 +11,7 @@ class Parser {
 
     List<Expr> parse() {
         List<Expr> expressions = new ArrayList<>();
-        while(!isAtEnd()) expressions.add(expression());
+        while (!isAtEnd()) expressions.add(expression());
         return expressions;
     }
 
@@ -52,7 +52,7 @@ class Parser {
     private Expr addition() {
         Expr expr = multiplication();
 
-        while(match(TokenType.MINUS, TokenType.PLUS)) {
+        while (match(TokenType.MINUS, TokenType.PLUS)) {
             Token operator = previous();
             Expr right = multiplication();
             expr = new Expr.Binary(expr, operator, right);
@@ -73,7 +73,7 @@ class Parser {
     }
 
     private Expr primary() {
-        if(match(TokenType.NUMBER)) {
+        if (match(TokenType.NUMBER)) {
             return new Expr.Literal(previous().literal);
         }
 
@@ -90,8 +90,11 @@ class Parser {
         return new ParserError();
     }
 
-    private Token consume(TokenType type, String message) {
-        if(check(type)) return advance();
+    private void consume(TokenType type, String message) {
+        if (check(type)) {
+            advance();
+            return;
+        }
 
         throw error(peek(), message);
     }
@@ -106,8 +109,8 @@ class Parser {
     }
 
     private boolean match(TokenType... types) {
-        for(TokenType type: types) {
-            if(check(type)) {
+        for (TokenType type : types) {
+            if (check(type)) {
                 advance();
                 return true;
             }
@@ -116,9 +119,10 @@ class Parser {
     }
 
     private Token advance() {
-        if(!isAtEnd()) current++;
+        if (!isAtEnd()) current++;
         return previous();
     }
 
-    private static class ParserError extends RuntimeException {}
+    private static class ParserError extends RuntimeException {
+    }
 }

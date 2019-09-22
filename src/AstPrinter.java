@@ -1,17 +1,16 @@
+import java.util.List;
 
 class AstPrinter implements Expr.Visitor<String> {
 
-    public static void main(String[] args) {
-        Expr expr = new Expr.Binary(
-                new Expr.Literal(123),
-                new Token(TokenType.STAR, "*", null, 1),
-                new Expr.Grouping(
-                        new Expr.Literal(45.67)));
-        System.out.println(new AstPrinter().print(expr));
-    }
-
     private String print(Expr expr) {
         return expr.accept(this);
+    }
+
+    void print(List<Expr> exprs) {
+        System.out.print("AST->: ");
+        for (Expr expr : exprs) {
+            System.out.println(print(expr));
+        }
     }
 
     @Override
@@ -30,21 +29,15 @@ class AstPrinter implements Expr.Visitor<String> {
         return expr.value.toString();
     }
 
-    @Override
-    public String visitLogicalExpr(Expr.Logical expr) {
-        return null;
-    }
-
     private String parenthesize(String name, Expr... exprs) {
         StringBuilder builder = new StringBuilder();
-
         builder.append("(").append(name);
+
         for (Expr expr : exprs) {
             builder.append(" ");
             builder.append(expr.accept(this));
         }
         builder.append(")");
-
         return builder.toString();
     }
 }

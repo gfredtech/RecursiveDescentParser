@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,11 +28,8 @@ public class Main {
 
         if (hadError) return;
 
+        new AstPrinter().print(expressions);
         new Interpreter().interpret(expressions);
-    }
-
-    static void error(int line, String message) {
-        report(line, "", message);
     }
 
     static void error(Token token, String message) {

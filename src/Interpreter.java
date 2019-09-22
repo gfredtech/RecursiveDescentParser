@@ -5,7 +5,7 @@ public class Interpreter implements Expr.Visitor<Object> {
     public Object visitBinaryExpr(Expr.Binary expr) {
         Object left = evaluate(expr.left);
         Object right = evaluate(expr.right);
-        
+
         switch (expr.operator.type) {
             case PLUS:
                 if (left instanceof Double && right instanceof Double) {
@@ -15,10 +15,10 @@ public class Interpreter implements Expr.Visitor<Object> {
                         "Operands must be two numbers.");
             case GREATER:
                 checkNumberOperand(expr.operator, left, right);
-                return (double) left > (double) right;
+                return (double) left > (double) right ? 1 : 0;
             case LESS:
                 checkNumberOperand(expr.operator, left, right);
-                return (double) left < (double) right;
+                return (double) left < (double) right ? 1 : 0;
             case EQUAL:
                 return isEqual(left, right);
             case MINUS:
@@ -38,7 +38,7 @@ public class Interpreter implements Expr.Visitor<Object> {
         if (left == null && right == null) return true;
         if (left == null) return false;
 
-        return left.equals(right);
+        return left.equals(right) ? 1 : 0;
     }
 
     private void checkNumberOperand(Token operator, Object left, Object right) {
@@ -61,14 +61,9 @@ public class Interpreter implements Expr.Visitor<Object> {
         return expr.value;
     }
 
-    @Override
-    public Object visitLogicalExpr(Expr.Logical expr) {
-        return null;
-    }
-
     void interpret(List<Expr> exprs) {
         try {
-            for(Expr expr: exprs) {
+            for (Expr expr : exprs) {
                 execute(expr);
             }
         } catch (RuntimeError error) {
