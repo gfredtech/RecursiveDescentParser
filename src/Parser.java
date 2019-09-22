@@ -69,7 +69,6 @@ class Parser {
             expr = new Expr.Binary(expr, operator, right);
         }
         return expr;
-
     }
 
     private Expr primary() {
@@ -95,7 +94,6 @@ class Parser {
             advance();
             return;
         }
-
         throw error(peek(), message);
     }
 
@@ -123,6 +121,5 @@ class Parser {
         return previous();
     }
 
-    private static class ParserError extends RuntimeException {
-    }
+    private static class ParserError extends RuntimeException {}
 }

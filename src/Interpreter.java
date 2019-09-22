@@ -35,8 +35,8 @@ public class Interpreter implements Expr.Visitor<Object> {
     }
 
     private Object isEqual(Object left, Object right) {
-        if (left == null && right == null) return true;
-        if (left == null) return false;
+        if (left == null && right == null) return 1;
+        if (left == null) return 0;
 
         return left.equals(right) ? 1 : 0;
     }
@@ -86,7 +86,6 @@ public class Interpreter implements Expr.Visitor<Object> {
             }
             return text;
         }
-
         return object.toString();
     }
 }

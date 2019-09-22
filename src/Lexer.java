@@ -62,10 +62,7 @@ class Lexer {
         }
     }
 
-    private boolean isDigit(char c) {
-        return c >= '0' && c <= '9';
-
-    }
+    private boolean isDigit(char c) { return c >= '0' && c <= '9'; }
 
     private void number() {
         while (isDigit(peek())) advance();
@@ -90,7 +87,6 @@ class Lexer {
     private void addToken(TokenType type, Object literal) {
         String text = source.substring(start, current);
         tokens.add(new Token(type, text, literal, line));
-
     }
 
     private char peekNext() {
