@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.NotNull;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,7 +32,7 @@ public class Main {
         new Interpreter().interpret(expressions);
     }
 
-    static void error(@NotNull Token token, String message) {
+    static void error(Token token, String message) {
         if (token.type == TokenType.EOF) {
             report(token.line, " at end", message);
         } else {
@@ -48,7 +46,7 @@ public class Main {
         hadError = true;
     }
 
-    static void runtimeError(@NotNull RuntimeError error) {
+    static void runtimeError(RuntimeError error) {
         System.err.println(error.getMessage() +
                 "\n[line " + error.token.line + "]");
     }
