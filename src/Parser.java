@@ -15,7 +15,6 @@ class Parser {
         return expressions;
     }
 
-    @org.jetbrains.annotations.Contract(pure = true)
     private boolean isAtEnd() {
         return peek().type == TokenType.EOF;
     }
