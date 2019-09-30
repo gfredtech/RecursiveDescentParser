@@ -14,7 +14,7 @@ public class Main {
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
         while (true) {
-            System.out.print("> ");
+            System.out.print("λ> ");
             run(reader.readLine());
             hadError = false;
         }
